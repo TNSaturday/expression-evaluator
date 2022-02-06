@@ -16,4 +16,8 @@ export class Stack {
         this.array.pop();
         return this;
     }
+
+    isEmpty() {
+        return this.array.length === 0;
+    }
 }
