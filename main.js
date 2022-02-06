@@ -9,7 +9,7 @@ import { calculate } from "./operations.js";
 import { Stack } from "./Stack.js";
 
 // console.log(calculateExpression(5));
-console.log(calculateExpression("1*2+3"));
+console.log(calculateExpression("3+4/2-3"));
 
 function calculateExpression(stringExpression) {
     if (typeof stringExpression !== "string") {
@@ -25,15 +25,13 @@ function calculateExpression(stringExpression) {
             numbersStack.push(parseInt(stringExpression[i]));
         } else {
             if (operationsStack.isEmpty()) {
-                console.log(stringExpression[i]);
                 operationsStack.push(stringExpression[i]);
             } else {
                 if (operatorPrecedence[operationsStack.peek()] <= operatorPrecedence[stringExpression[i]]) {
                     operationsStack.push(stringExpression[i]);
                 } else {
-                    // If the next operator has lower precedence than the previous one, take the
+                    // If the next operator has higher power than the previous one, take the
                     // last two numbers from the numbers stack and execute the previous operation on them
-                    // For now let's just log the operation
                     const number2 = numbersStack.pop();
                     const number1 = numbersStack.pop();
                     const operator = operationsStack.pop();
