@@ -13,8 +13,7 @@ export class Stack {
     }
 
     pop() {
-        this.array.pop();
-        return this;
+        return this.array.pop();
     }
 
     isEmpty() {

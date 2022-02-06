@@ -8,7 +8,7 @@ import { operatorPrecedence } from "./operatorPrecedence.js";
 import { Stack } from "./Stack.js";
 
 // console.log(calculateExpression(5));
-console.log(calculateExpression("1+2*3"));
+console.log(calculateExpression("1*2+3"));
 
 function calculateExpression(stringExpression) {
     if (typeof stringExpression !== "string") {
@@ -20,11 +20,23 @@ function calculateExpression(stringExpression) {
 
     // Let's start with the assumption, that our input string consists of single digit numbers and binary operators
     for (let i = 0; i < stringExpression.length; i++) {
-        // For now I just put all numbers into the numbers stack and all operators into operations stack
         if (parseInt(stringExpression[i])) {
             numbersStack.push(parseInt(stringExpression[i]));
         } else {
-            operationsStack.push(stringExpression[i]);
+            if (operationsStack.isEmpty()) {
+                operationsStack.push(stringExpression[i]);
+            } else {
+                if (operatorPrecedence[operationsStack.peek()] <= operatorPrecedence[stringExpression[i]]) {
+                    operationsStack.push(stringExpression[i]);
+                } else {
+                    // If the next operator has lower precedence than the previous one, take the
+                    // last two numbers from the numbers stack and execute the previous operation on them
+                    // For now let's just log the operation
+                    const number2 = numbersStack.pop();
+                    const number1 = numbersStack.pop();
+                    console.log(`${number1} ${operationsStack.pop()} ${number2}`);
+                }
+            }
         }
     }
 
