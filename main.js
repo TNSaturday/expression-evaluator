@@ -5,6 +5,7 @@
 // bar("12-3") -> 9
 
 import { operatorPrecedence } from "./operatorPrecedence.js";
+import { calculate } from "./operations.js";
 import { Stack } from "./Stack.js";
 
 // console.log(calculateExpression(5));
@@ -24,6 +25,7 @@ function calculateExpression(stringExpression) {
             numbersStack.push(parseInt(stringExpression[i]));
         } else {
             if (operationsStack.isEmpty()) {
+                console.log(stringExpression[i]);
                 operationsStack.push(stringExpression[i]);
             } else {
                 if (operatorPrecedence[operationsStack.peek()] <= operatorPrecedence[stringExpression[i]]) {
@@ -34,7 +36,9 @@ function calculateExpression(stringExpression) {
                     // For now let's just log the operation
                     const number2 = numbersStack.pop();
                     const number1 = numbersStack.pop();
-                    console.log(`${number1} ${operationsStack.pop()} ${number2}`);
+                    const operator = operationsStack.pop();
+                    numbersStack.push(calculate[operator](number1, number2));
+                    operationsStack.push(stringExpression[i]);
                 }
             }
         }
