@@ -19,11 +19,7 @@ function evaluateExpression(expressionArray) {
     let calculationResult = calculate[operator](expressionArray[operatorIndex-1], expressionArray[operatorIndex+1]);
     expressionArray.splice(operatorIndex - 1, 3, calculationResult);
 
-    if (expressionArray.length === 1) {
-        return expressionArray[0];
-    } else {
-        return evaluateExpression(expressionArray);
-    }
+    return expressionArray.length === 1 ? expressionArray[0] : evaluateExpression(expressionArray);
 }
 
 /**
@@ -68,7 +64,7 @@ function tokenizeString(expressionString) {
         }
     }
 
-    if(token !== "") {
+    if (token !== "") {
         tokenArray.push(parseInt(token));
     }
 
