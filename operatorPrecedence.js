@@ -1,4 +1,4 @@
-export const operatorPrecedence = {
+const operatorPrecedence = {
     "+": 1,
     "-": 1,
     "*": 2,

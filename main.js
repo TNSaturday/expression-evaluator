@@ -1,15 +1,6 @@
-// Написать функцию вычисления простых выражений
-// Example:
-// bar("1+2*3") -> 7
-// bar("4/2*4-3") -> 5
-// bar("12-3") -> 9
-
-import { operatorPrecedence } from "./operatorPrecedence.js";
-import { calculate } from "./operations.js";
-
-const arrayExpression = tokenizeString("12-3");
-const expressionResult = evaluateExpression(arrayExpression);
-console.log(expressionResult);
+function calculateExpression(stringExpression) {
+    return evaluateExpression(tokenizeString(stringExpression));
+}
 
 /**
  * The algorithm that I came up with is such:
@@ -29,9 +20,9 @@ function evaluateExpression(expressionArray) {
     expressionArray.splice(operatorIndex - 1, 3, calculationResult);
 
     if (expressionArray.length === 1) {
-        return expressionArray;
+        return expressionArray[0];
     } else {
-        evaluateExpression(expressionArray);
+        return evaluateExpression(expressionArray);
     }
 }
 

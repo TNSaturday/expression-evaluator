@@ -9,6 +9,21 @@
 </head>
 <body>
 
-    <script type="module" src="main.js"></script>
+    <script src="operatorPrecedence.js"></script>
+    <script src="operations.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // Написать функцию вычисления простых выражений
+        // Example:
+        // bar("1+2*3") -> 7
+        // bar("4/2*4-3") -> 5
+        // bar("12-3") -> 9
+        console.log("1+2*3");
+        console.log(calculateExpression("1+2*3"));
+        console.log("4/2*4-3");
+        console.log(calculateExpression("4/2*4-3"));
+        console.log("12-3");
+        console.log(calculateExpression("12-3"));
+    </script>
 </body>
 </html>
