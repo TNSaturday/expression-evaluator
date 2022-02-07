@@ -7,13 +7,14 @@
 import { operatorPrecedence } from "./operatorPrecedence.js";
 import { calculate } from "./operations.js";
 
-const arrayExpression = tokenizeString("12-3+2/2");
-console.log(findOperatorWithBiggestPrecedence(arrayExpression));
+const arrayExpression = tokenizeString("12-3");
+const expressionResult = evaluateExpression(arrayExpression);
+console.log(expressionResult);
 
 /**
- * The algorithm that I came up with is such one:
+ * The algorithm that I came up with is such:
  * 1. Find the first operator with maximum precedence of the operatorPrecedence object.
- * 2. Apply this operand for the numbers, that surround it (e.g. expressionArray[i-1] and expressionArray[i+1].
+ * 2. Apply this operator for the operands, that surround it (e.g. expressionArray[i-1] and expressionArray[i+1].
  * 3. Remove said positions along with the operand itself from the array.
  * 4. Put back the computation from the step 2.
  * 5. Return new array and call function recursively.
@@ -21,6 +22,17 @@ console.log(findOperatorWithBiggestPrecedence(arrayExpression));
  * @param expressionArray
  */
 function evaluateExpression(expressionArray) {
+    let operator = findOperatorWithBiggestPrecedence(expressionArray);
+    let operatorIndex = expressionArray.findIndex(el => el === operator);
+
+    let calculationResult = calculate[operator](expressionArray[operatorIndex-1], expressionArray[operatorIndex+1]);
+    expressionArray.splice(operatorIndex - 1, 3, calculationResult);
+
+    if (expressionArray.length === 1) {
+        return expressionArray;
+    } else {
+        evaluateExpression(expressionArray);
+    }
 }
 
 /**
@@ -31,7 +43,7 @@ function evaluateExpression(expressionArray) {
 function findOperatorWithBiggestPrecedence(array) {
     let operator = "";
     let maxPrecedence = 0;
-    
+
     for (let i = 0; i < array.length; i++) {
         if (typeof array[i] === 'string') {
             if (operatorPrecedence[array[i]] > maxPrecedence) {
