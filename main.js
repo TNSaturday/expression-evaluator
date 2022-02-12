@@ -55,7 +55,7 @@ function tokenizeString(expressionString) {
 
     let token = "";
     for (let i = 0; i < expressionString.length; i++) {
-        if (parseInt(expressionString[i])) {
+        if (parseInt(expressionString[i]) || parseInt(expressionString[i]) === 0) {
             token += expressionString[i];
         } else {
             tokenArray.push(parseInt(token));
